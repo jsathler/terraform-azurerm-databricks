@@ -17,6 +17,13 @@ variable "tags" {
   default     = null
 }
 
+variable "name_sufix_append" {
+  description = "Define if all resources names should be appended with sufixes according to https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations."
+  type        = bool
+  default     = true
+  nullable    = false
+}
+
 variable "databricks" {
   type = object({
     name                                                = string
@@ -60,4 +67,15 @@ variable "databricks" {
     condition     = try(var.databricks.custom_parameters.storage_account_sku_name, null) == null ? true : can(index(["Standard_LRS", "Standard_GRS", "Standard_RAGRS", "Standard_GZRS", "Standard_RAGZRS", "Standard_ZRS", "Premium_LRS", "Premium_ZRS"], var.databricks.custom_parameters.storage_account_sku_name) >= 0)
     error_message = "Valid values are Standard_LRS, Standard_GRS, Standard_RAGRS, Standard_GZRS, Standard_RAGZRS, Standard_ZRS, Premium_LRS and Premium_ZRS"
   }
+}
+
+variable "private_endpoints" {
+  type = map(object({
+    name                           = string
+    subnet_id                      = string
+    application_security_group_ids = optional(list(string))
+    private_dns_zone_id            = string
+  }))
+
+  default = null
 }

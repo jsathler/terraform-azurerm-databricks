@@ -1,5 +1,5 @@
 locals {
-  prefix = basename(path.cwd)
+  prefix = "${basename(path.cwd)}-example"
 }
 
 provider "azurerm" {
@@ -7,7 +7,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "default" {
-  name     = "${local.prefix}-example-rg"
+  name     = "${local.prefix}-rg"
   location = "northeurope"
 }
 
