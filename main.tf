@@ -6,7 +6,7 @@ locals {
 # Databricks
 ###########
 
-resource "azurerm_databricks_workspace" "example" {
+resource "azurerm_databricks_workspace" "default" {
   name                                                = "${var.databricks.name}-dbw"
   resource_group_name                                 = var.resource_group_name
   location                                            = var.location
