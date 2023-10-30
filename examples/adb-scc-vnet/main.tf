@@ -63,6 +63,7 @@ resource "azurerm_subnet_network_security_group_association" "default" {
 module "adb" {
   source              = "../../"
   resource_group_name = azurerm_resource_group.default.name
+
   databricks = {
     name                        = local.prefix
     managed_resource_group_name = replace(azurerm_resource_group.default.name, "rg", "mrg")
