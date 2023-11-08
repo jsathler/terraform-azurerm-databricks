@@ -60,6 +60,7 @@ resource "azurerm_network_security_group" "default" {
   name                = var.name_sufix_append ? "${var.vnet_injection.nsg_name}-nsg" : var.vnet_injection.nsg_name
   resource_group_name = var.resource_group_name
   location            = var.location
+  tags                = local.tags
 }
 
 resource "azurerm_subnet_network_security_group_association" "container" {
