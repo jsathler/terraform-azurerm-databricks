@@ -38,18 +38,13 @@ variable "databricks" {
     public_network_access_enabled                       = optional(bool, true)
     network_security_group_rules_required               = optional(string, null)
     custom_parameters = optional(object({
-      machine_learning_workspace_id                        = optional(string, null)
-      nat_gateway_name                                     = optional(string, null)
-      public_ip_name                                       = optional(string, null)
-      no_public_ip                                         = optional(bool, null)
-      public_subnet_name                                   = optional(string, null)
-      public_subnet_network_security_group_association_id  = optional(string, null)
-      private_subnet_name                                  = optional(string, null)
-      private_subnet_network_security_group_association_id = optional(string, null)
-      storage_account_name                                 = optional(string, null)
-      storage_account_sku_name                             = optional(string, "Standard_ZRS")
-      virtual_network_id                                   = optional(string, null)
-      vnet_address_prefix                                  = optional(string, null)
+      machine_learning_workspace_id = optional(string, null)
+      nat_gateway_name              = optional(string, null)
+      public_ip_name                = optional(string, null)
+      no_public_ip                  = optional(bool, null)
+      storage_account_name          = optional(string, null)
+      storage_account_sku_name      = optional(string, "Standard_ZRS")
+      vnet_address_prefix           = optional(string, null)
     }), {})
   })
 
@@ -76,6 +71,20 @@ variable "private_endpoints" {
     application_security_group_ids = optional(list(string))
     private_dns_zone_id            = string
   }))
+
+  default = null
+}
+
+variable "vnet_injection" {
+  type = object({
+    vnet_id               = string
+    nsg_name              = string
+    route_table_id        = optional(string, null)
+    container_snet_name   = string
+    container_snet_prefix = string
+    host_snet_name        = string
+    host_snet_prefix      = string
+  })
 
   default = null
 }
